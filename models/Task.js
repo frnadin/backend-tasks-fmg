@@ -23,4 +23,4 @@ const Task = database.define('Task', {
     timestamps: true, // Adiciona createdAt e updatedAt
 });
 
-export { Task };
+export default Task ;

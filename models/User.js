@@ -24,4 +24,4 @@ const User = database.define('User', {
     timestamps: true, // Adiciona createdAt e updatedAt
 });
 
-export { User };
+export default User ;
