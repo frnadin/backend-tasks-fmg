@@ -5,8 +5,10 @@ import router from './routes/user.js'
 import routerTask from './routes/task.js'
 const app = express()
 const PORT = process.env.PORT // usando o dotenv para pegar a porta do arquivo .env
+import cors from 'cors'
 
 app.use(express.json())
+app.use(cors()) 
 app.use(router)
 app.use(routerTask)
 
