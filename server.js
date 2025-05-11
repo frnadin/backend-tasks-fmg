@@ -11,9 +11,9 @@ import cors from 'cors'
 app.use(express.json())
 
 app.use(cors({
-  origin: '*', // Isso permite qualquer origem, mas você pode especificar um domínio específico como 'http://localhost:3000'
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Permitir métodos específicos
-  allowedHeaders: ['Content-Type', 'Authorization'], // Permitir cabeçalhos específicos
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
 }));
 
 app.use(router)
