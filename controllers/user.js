@@ -35,7 +35,7 @@ const loginUser = async (req, res) => {
         // Buscar dados do usuario que está tentando fazer login 
         const searchUser = await User.findOne({ where: { email } })
         if (!searchUser) {
-            return res.status(400).json({ message: 'User not found' })
+            return res.status(401).json({ message: 'User not found' })
         }
         // Verificar se a senha está correta
         const passwordMatch = searchUser.password
@@ -46,7 +46,7 @@ const loginUser = async (req, res) => {
         }
         // Gerar o token de autenticação
         const token = jwt.sign({ id }, secret, { expiresIn: '1h' })
-        return res.status(200).json({ message: 'Login deu boa', token })
+        return res.status(200).json({ message: 'Login deu boa', token, userID: id })
     }
     catch (error) {
         console.error(error)

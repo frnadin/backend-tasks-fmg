@@ -1,5 +1,6 @@
 import database from '../database.js';
 import { DataTypes } from 'sequelize';
+import User from './User.js'; 
 
 const Task = database.define('Task', {
     id: {
@@ -22,5 +23,8 @@ const Task = database.define('Task', {
 }, {
     timestamps: true, // Adiciona createdAt e updatedAt
 });
+
+Task.belongsTo(User, { foreignKey: 'id_user', as: 'user' });
+
 
 export default Task ;

@@ -1,4 +1,5 @@
 import Task from "../models/task.js";
+import User from "../models/User.js";
 
 const createTask = async (req, res) => {
   const defaultStatus = "PENDING";
@@ -13,7 +14,7 @@ const createTask = async (req, res) => {
       return res.status(400).send({ msg: "dados incopleto meu fi" });
     }
 
-    await Task.create({ description, defaultStatus, id_user });
+    await Task.create({ description, status: defaultStatus, id_user });
 
     return res.status(201).send({ msg: "task criada :D" });
   } catch (err) {
@@ -60,7 +61,7 @@ const changeStatusTask = async (req, res) => {
     const { status } = req.body;
 
     // Verifica se o status foi fornecido e é válido
-    const validStatuses = ["PENDING", "IN_PROGRESS", "COMPLETED"]; // Exemplo de status válidos
+    const validStatuses = ["PENDING", "IN_PROGRESS", "COMPLETED"];
 
     if (!validStatuses.includes(status)) {
       return res.status(400).send({ mensagem: "Status inválido" });
@@ -71,7 +72,7 @@ const changeStatusTask = async (req, res) => {
       return res.status(404).send({ mensagem: "Tarefa não encontrada" });
     }
 
-    if (task.id_user == id_user) {
+    if (String(task.id_user) === String(id_user)) {
       task.status = status;
       await task.save();
       res.status(200).send({ msg: "chamado atualizado (:" });
@@ -83,4 +84,21 @@ const changeStatusTask = async (req, res) => {
   }
 };
 
-export { createTask, listTask, deleteTask, changeStatusTask };
+const getAllTasks = async (req, res) => {
+  try {
+    const tasks = await Task.findAll({
+      include: {
+        model: User,
+        as: 'user', 
+        attributes: ['id', 'name'],
+      }
+    });
+    return res.status(200).json({ tasks });
+  } catch (err) {
+    console.error("Erro ao buscar tarefas:", err);
+    return res.status(500).json({ mensagem: "Ocorreu um erro inesperado" });
+  }
+};
+
+
+export { createTask, listTask, deleteTask, changeStatusTask, getAllTasks };

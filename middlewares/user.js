@@ -6,7 +6,17 @@ const auth =  (req, res, next) => {
         console.log('autenticando...');
         
         //import o token que ira para o header da req
-        const { token } = req.headers
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+          return res.status(401).send({ mensagem: 'Acesso negado: token ausente ou inválido' });
+        }
+        
+        const token = authHeader.split(' ')[1]; // Pega só o token
+       console.log('Token extraído:', token);// Log do cabeçalho
+
+
+        
 
         
         if (!token) {
@@ -19,8 +29,9 @@ const auth =  (req, res, next) => {
         // identifica para qual user foi gerado o token
         req.id = contentToken.id
         next()
-    } catch(erro){
-        res.status(404).send({ mensagem: 'Acesso negado' })
-    }    
+    } catch (erro) {
+        console.error('Erro no auth middleware:', erro.name, erro.message);
+        return res.status(401).send({ mensagem: 'Token inválido ou expirado', erro: erro.message });
+      }
 }
 export { auth }
