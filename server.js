@@ -18,7 +18,7 @@ const start = async () => {
   try {
       await database.sync();
       console.log('Banco syncado');
-W      app.listen(PORT, () => console.log(`Subiu a pipa do vovô. port:${PORT}`));
+      app.listen(PORT, () => console.log(`Subiu a pipa do vovô. port:${PORT}`));
 
   } catch (error) {
       console.error("Erro ao conectar ao banco:", error);
