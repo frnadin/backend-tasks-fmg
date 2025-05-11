@@ -9,9 +9,13 @@ const PORT = process.env.PORT  || 3000
 import cors from 'cors'
 
 app.use(express.json())
+
 app.use(cors({
-  origin: 'https://frontend-tasks-fmg.vercel.app',  
+  origin: '*', // Isso permite qualquer origem, mas você pode especificar um domínio específico como 'http://localhost:3000'
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Permitir métodos específicos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Permitir cabeçalhos específicos
 }));
+
 app.use(router)
 app.use(routerTask)
 app.use(routerTasks)
