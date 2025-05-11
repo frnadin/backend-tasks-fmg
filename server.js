@@ -10,8 +10,9 @@ import cors from 'cors'
 
 app.use(express.json())
 app.use(cors({
-  origin: '*',
-}));app.use(router)
+  origin: 'https://frontend-tasks-fmg.vercel.app',  
+}));
+app.use(router)
 app.use(routerTask)
 app.use(routerTasks)
 
