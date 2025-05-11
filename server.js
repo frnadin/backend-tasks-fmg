@@ -9,8 +9,9 @@ const PORT = process.env.PORT  || 3000
 import cors from 'cors'
 
 app.use(express.json())
-app.use(cors()) 
-app.use(router)
+app.use(cors({
+  origin: '*',
+}));app.use(router)
 app.use(routerTask)
 app.use(routerTasks)
 
