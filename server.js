@@ -5,15 +5,14 @@ import router from './routes/user.js'
 import routerTask from './routes/task.js'
 import routerTasks from './routes/allTasks.js'
 const app = express()
-const PORT = process.env.PORT  || 3000
+const PORT = process.env.PORT || 3131
 import cors from 'cors'
 
 app.use(express.json())
 
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-  allowedHeaders: ['Content-Type', 'Authorization'], 
+  origin: 'https://frontend-tasks-fmg-9juj.vercel.app',
+  credentials: true
 }));
 
 app.use(router)
