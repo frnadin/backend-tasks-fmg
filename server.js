@@ -10,11 +10,21 @@ import cors from 'cors'
 
 app.use(express.json())
 
+
 app.use(cors({
-  origin: 'https://frontend-tasks-fmg-9juj.vercel.app',
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); 
+
+    const allowed = origin.endsWith('.vercel.app') || origin === 'https://vercel.app';
+
+    if (allowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Não permitido por CORS'));
+    }
+  },
   credentials: true
 }));
-
 app.use(router)
 app.use(routerTask)
 app.use(routerTasks)
