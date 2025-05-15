@@ -17,7 +17,7 @@ app.use(
 
       const allowedOrigins = [
         "http://localhost:5173/", 
-        "https://seufrontend.vercel.app", 
+        "https://frontend-tasks-fmg-9juj.vercel.app/", 
       ];
 
      const allowed = allowedOrigins.includes(origin) || origin.endsWith('.vercel.app');
